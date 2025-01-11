@@ -4,10 +4,8 @@ import math
 import numpy as np
 import os
 import requests
-import threading
 
 from concurrent.futures import ThreadPoolExecutor
-from itertools import chain
 from slugify import slugify
 from tqdm import tqdm
 
