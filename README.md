@@ -7,6 +7,7 @@ This is a project I'm working on to try and "objectively" classify how pretty un
 ## How to contribute!
 
 > $ pip install -r requirements.txt
+
 > $ python pull_images.py --num_points 1000 --uni_starting_idx [X] -n_unis 25
 
 Replace the `[X]` with the first index that hasn't yet been catalogged. As of last update, that index is 0! You'll also have to set your environment's `GOOGLE_MAPS_API_KEY` variable to be your Google Maps API key. 
