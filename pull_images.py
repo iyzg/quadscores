@@ -4,6 +4,7 @@ import math
 import numpy as np
 import os
 import requests
+import shutil
 
 from concurrent.futures import ThreadPoolExecutor
 from slugify import slugify
@@ -38,6 +39,13 @@ def parse_arguments():
         type=str,
         default="imgs",
         help="Where to save all the images",
+    )
+
+    parser.add_argument(
+        "--zip_dir",
+        type=str,
+        default="zips",
+        help="Where to save all the zips",
     )
 
     parser.add_argument(
@@ -181,6 +189,20 @@ def get_all_uni_images(unis, uni_points, api_key, args):
         )
 
 
+def create_zips(args):
+    # Store zips in zip folder
+    os.makedirs(args.zip_dir, exist_ok=True)
+
+    for folder in os.listdir(args.img_dir):
+        if len(os.listdir(f"{args.img_dir}/{folder}")) > 0:
+            shutil.make_archive(
+                f"{args.zip_dir}/{folder}", "zip", f"{args.img_dir}/{folder}"
+            )
+        # Go through and clean out all folders that don't have any images
+        else:
+            os.rmdir(f"{args.img_dir}/{folder}")
+
+
 if __name__ == "__main__":
     args = parse_arguments()
 
@@ -202,10 +224,7 @@ if __name__ == "__main__":
     uni_points = get_all_uni_points(unis, api_key, args)
     print(f"Got {len(uni_points)} universities!")
     get_all_uni_images(unis, uni_points, api_key, args)
-
-    # Go through and clean out all folders that don't have any images
-    for folder in os.listdir(args.img_dir):
-        if len(os.listdir(f"{args.img_dir}/{folder}")) == 0:
-            os.rmdir(f"{args.img_dir}/{folder}")
-
     print("Pulled all images!")
+
+    create_zips(args)
+    print("Created zips!")
