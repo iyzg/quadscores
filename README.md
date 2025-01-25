@@ -8,9 +8,9 @@ This is a project I'm working on to try and "objectively" classify how pretty un
 
 > $ pip install -r requirements.txt
 
-> $ python pull_images.py --num_points 1000 --uni_starting_idx [X] -n_unis 25
+> $ python pull_images.py --num_points 1000 --uni_starting_idx [X] --n_unis 25
 
-Replace the `[X]` with the first index that hasn't yet been catalogged. As of last update, that index is 0! You'll also have to set your environment's `GOOGLE_MAPS_API_KEY` variable to be your Google Maps API key. 
+Replace the `[X]` with the first index that hasn't yet been catalogged. As of last update, that index is **20**! You'll also have to set your environment's `GOOGLE_MAPS_API_KEY` variable to be your Google Maps API key. 
 
 Be careful running this script a bunch as it can very quickly eat your credits. One run with these parameters is guaranteed to be under the free monthly quote of $200. 
 
