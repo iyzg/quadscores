@@ -168,8 +168,6 @@ def pull_uni_imgs(args_tuple):
     else:
         return
 
-    print(slug_name, len(points))
-
     with ThreadPoolExecutor() as executor:
         args_tuple = [(slug_name, lat, lon, key) for lat, lon in points]
         executor.map(pull_image, args_tuple)
@@ -220,10 +218,21 @@ if __name__ == "__main__":
         print(f'Error: Uni list "{args.uni_file}" doesn\'t exist')
         exit()
 
-    unis = unis[args.uni_starting_idx : args.uni_starting_idx + args.n_unis]
-    uni_points = get_all_uni_points(unis, api_key, args)
-    print(f"Got {len(uni_points)} universities!")
-    get_all_uni_images(unis, uni_points, api_key, args)
+    print(f"Pulling {len(unis)} universities!")
+    actual_unis = []
+    uni_idx = args.uni_starting_idx
+
+    # Smart pull where you start with the starting index and pull the next n_unis that
+    # don't already have scores in the score dir
+    while len(actual_unis) < args.n_unis:
+        if not os.path.exists(f"scores/{slugify(unis[uni_idx]['name'])}.npy"):
+            actual_unis.append(unis[uni_idx])
+        uni_idx += 1
+    print("New starting index:", uni_idx)
+
+    uni_points = get_all_uni_points(actual_unis, api_key, args)
+    print(f"Got {len(uni_points)} universities points!")
+    get_all_uni_images(actual_unis, uni_points, api_key, args)
     print("Pulled all images!")
 
     create_zips(args)

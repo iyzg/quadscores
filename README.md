@@ -20,7 +20,7 @@ Be careful running this script a bunch as it can very quickly eat your credits. 
 
 Once you've done your run, upload the zip files to a Google Colab instance of [this code](texthttps://colab.research.google.com/drive/14U9AMSeie2kBPveaSxrrXpeGixCIzG1_?usp=sharing). This has only been tested with A100s, but should work on smaller GPUs as well.
 
-This should produce a bunch of numpy files `.npy` of the school's scores. Once you have those, download them, and leave an issue letting me know. You're also welcome to make a PR with your scores in the folder and letting me know what `pull_images.py` command you ran so I can update the README with the proper starting index.
+This should produce a bunch of numpy files `.npy` of the school's scores. Once you have those, download them, and leave an issue letting me know. You're also welcome to make a PR with your scores in the folder along with what `pull_image.py` reports as the new starting index. 
 
 ### Step 3
 
