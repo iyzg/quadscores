@@ -6,6 +6,8 @@ This is a project I'm working on to try and "objectively" classify how pretty un
 
 ## How to contribute!
 
+### Step 1
+
 > $ pip install -r requirements.txt
 
 > $ python pull_images.py --num_points 1000 --uni_starting_idx [X] --n_unis 25
@@ -14,4 +16,12 @@ Replace the `[X]` with the first index that hasn't yet been catalogged. As of la
 
 Be careful running this script a bunch as it can very quickly eat your credits. One run with these parameters is guaranteed to be under the free monthly quote of $200. 
 
-Once you've done your run, feel free to leave an issue letting me know! I'm still figuring out a way to quickly get share images between one another.
+### Step 2
+
+Once you've done your run, upload the zip files to a Google Colab instance of [this code](texthttps://colab.research.google.com/drive/14U9AMSeie2kBPveaSxrrXpeGixCIzG1_?usp=sharing). This has only been tested with A100s, but should work on smaller GPUs as well.
+
+This should produce a bunch of numpy files `.npy` of the school's scores. Once you have those, download them, and leave an issue letting me know. You're also welcome to make a PR with your scores in the folder and letting me know what `pull_images.py` command you ran so I can update the README with the proper starting index.
+
+### Step 3
+
+Wow, there's no third step! Hopefully, all the code has ran for you, and the school scores you've computed will soon be live on the website!
