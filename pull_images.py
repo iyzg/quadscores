@@ -29,7 +29,7 @@ def parse_arguments():
     parser.add_argument(
         "--n_unis",
         type=int,
-        default=100,
+        default=25,
         help="Number of universities to pull images for",
     )
 
@@ -186,6 +186,7 @@ if __name__ == "__main__":
 
     try:
         api_key = os.environ["GOOGLE_MAPS_API_KEY"]
+        print(f"Using API key {api_key}")
     except KeyError as e:
         print("Error: Must set GOOGLE_MAPS_API_KEY system environment")
         exit()
@@ -197,6 +198,14 @@ if __name__ == "__main__":
         print(f'Error: Uni list "{args.uni_file}" doesn\'t exist')
         exit()
 
+    unis = unis[args.uni_starting_idx : args.uni_starting_idx + args.n_unis]
     uni_points = get_all_uni_points(unis, api_key, args)
     print(f"Got {len(uni_points)} universities!")
     get_all_uni_images(unis, uni_points, api_key, args)
+
+    # Go through and clean out all folders that don't have any images
+    for folder in os.listdir(args.img_dir):
+        if len(os.listdir(f"{args.img_dir}/{folder}")) == 0:
+            os.rmdir(f"{args.img_dir}/{folder}")
+
+    print("Pulled all images!")
